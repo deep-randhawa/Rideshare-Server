@@ -1,0 +1,17 @@
+{
+    "<name_of_configuration": {
+        "port": "<HTTP_port_number>",
+        "database": {
+            "username": "<mysql_username>",
+            "password": "<mysql_password>",
+            "database": "<name_of_database>",
+            "host": "<host>",                                   // 127.0.0.1 for local server
+            "port": 3306,
+            "dialect": "mysql"
+        },
+        "facebook": {
+            "appID": "<app_id>",
+            "appSecret": "<app_secret>"
+        }
+    }
+}
