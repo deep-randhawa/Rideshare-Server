@@ -13,12 +13,12 @@
 	"prod": {
 		"port": "8080",
 		"database": {
-			"username": "root",
-			"password": "passwd",
-			"database": "rideshare_prod",
-			"host": "<find out>",
-			"dialect": "mysql",
-			"port": 3306
+			"username": "aqaknwvrifxttj",
+			"password": "Hov5hGWKhLPKMrXN415ct7wpRo",
+			"database": "df3ui6jstk2pu5",
+			"host": "ec2-54-227-249-165.compute-1.amazonaws.com",
+			"dialect": "postgres",
+			"port": 5432
 		}
 	}
 }

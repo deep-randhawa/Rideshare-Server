@@ -22,10 +22,26 @@ fs.readFile('config.json', 'utf8', function(err, data) {
     }
 
     var configName 	= process.argv[2] || 'development';
-    var port 		= process.env.PORT || 5000;
+    var port 		= process.env.PORT || config[configName].port;
 
-    app.get('/', function(req, res) {
-    	res.send('Hello world, this works !!!');
+    db.sequelize(config[configName], function(err) {
+    	if (err) {
+    		console.log('Sequelize error: ' + e);
+    		process.exit(-1);
+    	} else {
+
+    		// Set up globals in the req object.
+            // Do this first or they will not show up in the req.
+            app.use(function(req, res, next) {
+                req.db = db.db;
+                req.configName = configName;
+                next();
+            });
+
+    		app.get('/', function(req, res) {
+    			res.send('TODO')
+    		});
+    	}
     });
 
     app.listen(port);
