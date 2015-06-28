@@ -1,0 +1,24 @@
+{
+	"development": {
+		"port": "5000",
+		"database": {
+			"username": "root",
+			"password": "",
+			"database": "rideshare_dev",
+			"host": "localhost",
+			"dialect": "mysql",
+			"port": 3306
+		}
+	},
+	"prod": {
+		"port": "8080",
+		"database": {
+			"username": "root",
+			"password": "passwd",
+			"database": "rideshare_prod",
+			"host": "<find out>",
+			"dialect": "mysql",
+			"port": 3306
+		}
+	}
+}
