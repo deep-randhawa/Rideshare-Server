@@ -58,6 +58,7 @@ fs.readFile('config.json', 'utf8', function(err, data) {
     		});
 
             app.post('/create_user', userAPI.createUser);
+            app.post('/get_all_users', userAPI.getAllUsers);
     	}
     });
 
