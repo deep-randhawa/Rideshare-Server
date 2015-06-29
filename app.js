@@ -3,6 +3,8 @@ var Sequelize			= require('sequelize')
 var fs					= require('fs')
 var passport 			= require('passport');
 var FacebookStrategy 	= require('passport-facebook').Strategy;
+var bodyParser          = require('body-parser');
+var logger              = require('morgan');
 
 var db                  = require('./models')
 var userAPI             = require('./controllers/user')
@@ -10,6 +12,8 @@ var rideAPI             = require('./controllers/ride')
 
 var app 				= express()
 var config 				= null
+
+
 
 fs.readFile('config.json', 'utf8', function(err, data) {
 	if (err) {
@@ -42,9 +46,18 @@ fs.readFile('config.json', 'utf8', function(err, data) {
                 next();
             });
 
+            app.set('port', port);
+            app.use(logger('dev'));
+            app.use(bodyParser.json());
+            app.use(bodyParser.urlencoded({extended: 'false'}));
+
+
+            // -- ROUTES -- //
     		app.get('/', function(req, res) {
-    			res.send('TODO')
+    			res.send('Welcome to Rideshare. Its still in production.')
     		});
+
+            app.post('/create_user', userAPI.createUser);
     	}
     });
 

@@ -1,9 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
     var Ride = sequelize.define('Ride', {
     	ride_id: { 
-            type: DataTypes.INTEGER, 
-            primaryKey: true, 
-            autoIncrement: true
+            type: DataTypes.STRING, 
+            primaryKey: true
         },
     	createdBy: DataTypes.INTEGER,
         source: DataTypes.STRING,
