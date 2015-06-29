@@ -3,6 +3,8 @@ var uuid = require('node-uuid');
 
 module.exports.createUser = function(req, res) {
 
+	// TODO: validate data. right now you are entering whatever comes in
+
 	var home = req.body.homeLat.toString() + ":" + req.body.homeLong.toString();
 
 	db.User.create({
