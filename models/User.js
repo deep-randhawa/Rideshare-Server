@@ -6,9 +6,12 @@ module.exports = function(sequelize, DataTypes) {
 			autoIncrement: true
 		},
 		name: DataTypes.STRING,
-		location: DataTypes.STRING,
-		fb_id: DataTypes.INTEGER,
-		email: DataTypes.STRING
+		homeLocation: DataTypes.STRING,									// will have coordinates of home <LAT:LONG>
+		merchant_id: DataTypes.INTEGER,									// twitter/facebook/google unique ID
+		authType: {
+			type: DataTypes.ENUM('twitter', 'facebook', 'google'),
+			allowNull: false
+		}
 	}, 
 	{
 		syncOnAssociation: true,

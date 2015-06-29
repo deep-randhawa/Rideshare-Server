@@ -28,6 +28,20 @@ var seq = function(config, callback) {
         db[model.name] = model
     });
 
+    // ## SETTING UP ASSOCIATIONS ## //
+
+    /*
+        A User can create as many rides as possible,
+        and there can be more than one user on each ride.
+    */
+    db.Ride.belongsToMany(db.User, {
+        through: 'UserRides',
+        foriegnKey: 'user_id'
+    });
+    db.User.belongsToMany(db.Ride, {
+        through: 'UserRides',
+        foriegnKey: 'ride_id'
+    });
 
     mysequelize.sync({force: true}).then(callback());
 }

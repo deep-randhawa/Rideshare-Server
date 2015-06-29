@@ -6,9 +6,11 @@ module.exports = function(sequelize, DataTypes) {
             autoIncrement: true
         },
     	createdBy: DataTypes.INTEGER,
-        fromLocation: DataTypes.STRING,
-        toLocation: DataTypes.STRING,
-        rideDate: DataTypes.TIME
+        source: DataTypes.STRING,
+        destination: DataTypes.STRING,
+        rideDate: DataTypes.TIME,
+        maxUsers: DataTypes.INTEGER,
+        status: DataTypes.ENUM('ACTIVE', 'INACTIVE')
     }, 
     {
         syncOnAssociation: true,

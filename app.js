@@ -1,11 +1,15 @@
 var express 			= require('express')
 var Sequelize			= require('sequelize')
 var fs					= require('fs')
-var db					= require('./models')
+var passport 			= require('passport');
+var FacebookStrategy 	= require('passport-facebook').Strategy;
+
+var db                  = require('./models')
+var userAPI             = require('./controllers/user')
+var rideAPI             = require('./controllers/ride')
 
 var app 				= express()
 var config 				= null
-
 
 fs.readFile('config.json', 'utf8', function(err, data) {
 	if (err) {
@@ -44,6 +48,8 @@ fs.readFile('config.json', 'utf8', function(err, data) {
     	}
     });
 
-    app.listen(port);
+    app.listen(port, function() {
+    	console.log('Server running at port ' + port);
+    });
 
 });

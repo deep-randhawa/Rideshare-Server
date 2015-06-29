@@ -20,5 +20,9 @@
 			"dialect": "postgres",
 			"port": 5432
 		}
+	},
+	"facebook": {
+		"appID": "859461710813088",
+		"appSecret": "5b16dcb245d34fa63122828c3c19a344"
 	}
 }
