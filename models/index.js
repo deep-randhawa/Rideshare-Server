@@ -43,7 +43,7 @@ var seq = function(config, callback) {
         foriegnKey: 'ride_id'
     });
 
-    mysequelize.sync({force : true}).then(callback());
+    mysequelize.sync().then(callback());
 }
 
 module.exports = {
