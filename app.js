@@ -10,6 +10,7 @@ var cookieParser        = require('cookie-parser');
 var methodOverride      = require('method-override');
 
 var db                  = require('./models');
+var auth                = require('./auth');
 var userAPI             = require('./controllers/user');
 var rideAPI             = require('./controllers/ride');
 
@@ -49,32 +50,8 @@ fs.readFile('config.json', 'utf8', function(err, data) {
     		process.exit(-1);
     	} else {
 
-            // -- SETTING UP PASSPORT FACEBOOK TOKEN STRATEGY -- //
-            passport.use('facebook-token', new FacebookTokenStrategy({
-                clientID:       config.facebook.appID,
-                clientSecret:   config.facebook.appSecret
-            },
-            function(accessToken, refreshToken, profile, done) {
-
-                /*
-                    Perform any extra validations here
-                */
-
-                db.db.User.findOrCreate({
-                    where : {
-                        'user_id': profile.id,
-                        'name': profile.name.givenName + ' ' + profile.name.familyName,
-                        'provider': profile.provider
-                    }
-                })
-                .then(function(user) {
-                    return done(null, user);
-                })
-                .error(function(err) {
-                    console.log(err);
-                    return done(err);
-                });
-            }));
+            // Setting up FB authentication //
+            auth.setUpFBAuth(config, passport, FacebookTokenStrategy);            
 
     		// Set up globals in the req object.
             // Do this first or they will not show up in the req.
@@ -103,17 +80,30 @@ fs.readFile('config.json', 'utf8', function(err, data) {
 
 
             // -- ROUTES -- //
-    		app.get('/'
-                , passport.authenticate('facebook-token')
+            app.get('/'
                 , function(req, res) {
-    			     if (req.user) {
-                        res.send('Welcome to Rideshare. Our developer is the biggest moron ever.')
-                     } else {
-                        res.sendStatus(500);
-                     }
+                    res.send('Welcome to Rideshare. You are NOT authenticated.')
+            });
+    		app.post('/'
+                , auth.ensureAuthenticated
+                , function(req, res) {
+                        res.send('Welcome to Rideshare. You have been authenticated');
     		});
 
-            app.post('/get_all_users', userAPI.getAllUsers);
+
+            app.post('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
+                res.sendStatus(200);
+            });
+            app.get('/logout'
+                , auth.ensureAuthenticated
+                , function(req, res) {
+                    req.logout();
+                    res.sendStatus(200);
+            });
+
+            app.post('/get_all_users'
+                , auth.ensureAuthenticated
+                , userAPI.getAllUsers);
     	}
     });
 
