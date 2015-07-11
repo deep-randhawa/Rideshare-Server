@@ -18,3 +18,11 @@ module.exports.newRide = function(req, res) {
 		res.sendStatus(500);
 	});
 }
+
+module.exports.getAllRides = function(req, res) {
+	db.Ride.findAll()
+	.then(function(users) {
+		res.write(JSON.stringify(users));
+		res.end();
+	});
+}

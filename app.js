@@ -85,7 +85,11 @@ fs.readFile('config.json', 'utf8', function(err, data) {
             // - GET REQUESTS - //
             app.get('/'
                 , function(req, res) {
-                    res.send('Welcome to Rideshare. You are NOT authenticated.')
+                    if (!req.isAuthenticated()) {
+                        res.send('Welcome to Rideshare. You are NOT authenticated.')
+                        return;
+                    }
+                    res.send('Welcome to Rideshare. You have been authenticated');     
             });
             app.get('/logout'
                 , auth.ensureAuthenticated
@@ -93,14 +97,17 @@ fs.readFile('config.json', 'utf8', function(err, data) {
                     req.logout();
                     res.sendStatus(200);
             });
-            app.get('/get_all_users'
+            app.get('/users'
                 , auth.ensureAuthenticated
                 , userAPI.getAllUsers);
-
-            // - POST REQUESTS - //
-            app.post('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
+            app.get('/rides'
+                , auth.ensureAuthenticated
+                , rideAPI.getAllRides);
+            app.get('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
                 res.sendStatus(200);
             });
+
+            // - POST REQUESTS - //
             app.post('/'
                 , auth.ensureAuthenticated
                 , function(req, res) {
@@ -109,6 +116,9 @@ fs.readFile('config.json', 'utf8', function(err, data) {
             app.post('/ride'
                 , auth.ensureAuthenticated
                 , rideAPI.newRide);
+            app.post('/user'
+                , auth.ensureAuthenticated
+                , userAPI.createUser);
     	}
     });
 
