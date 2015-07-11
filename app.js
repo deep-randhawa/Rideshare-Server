@@ -63,7 +63,9 @@ fs.readFile('config.json', 'utf8', function(err, data) {
 
             app.use(session({
                 secret: 'boilerup',
-                cookie: {secure: false},
+                cookie: {
+                    secure: false
+                },
                 resave: true,
                 saveUninitialized: true
             }));
@@ -80,19 +82,10 @@ fs.readFile('config.json', 'utf8', function(err, data) {
 
 
             // -- ROUTES -- //
+            // - GET REQUESTS - //
             app.get('/'
                 , function(req, res) {
                     res.send('Welcome to Rideshare. You are NOT authenticated.')
-            });
-    		app.post('/'
-                , auth.ensureAuthenticated
-                , function(req, res) {
-                        res.send('Welcome to Rideshare. You have been authenticated');
-    		});
-
-
-            app.post('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
-                res.sendStatus(200);
             });
             app.get('/logout'
                 , auth.ensureAuthenticated
@@ -100,10 +93,22 @@ fs.readFile('config.json', 'utf8', function(err, data) {
                     req.logout();
                     res.sendStatus(200);
             });
-
-            app.post('/get_all_users'
+            app.get('/get_all_users'
                 , auth.ensureAuthenticated
                 , userAPI.getAllUsers);
+
+            // - POST REQUESTS - //
+            app.post('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
+                res.sendStatus(200);
+            });
+            app.post('/'
+                , auth.ensureAuthenticated
+                , function(req, res) {
+                        res.send('Welcome to Rideshare. You have been authenticated');
+            });
+            app.post('/ride'
+                , auth.ensureAuthenticated
+                , rideAPI.newRide);
     	}
     });
 

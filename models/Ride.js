@@ -1,20 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
     var Ride = sequelize.define('Ride', {
     	ride_id: { 
-            type: DataTypes.STRING, 
-            primaryKey: true
+            type:               DataTypes.INTEGER,
+            autoIncrement:      true,
+            primaryKey:         true
         },
-    	createdBy: DataTypes.INTEGER,
-        source: DataTypes.STRING,
-        destination: DataTypes.STRING,
-        rideDate: DataTypes.TIME,
-        maxUsers: DataTypes.INTEGER,
-        status: DataTypes.ENUM('ACTIVE', 'INACTIVE')
+    	createdByID:            DataTypes.BIGINT,
+        createdByProvider:      DataTypes.STRING,
+        source:                 DataTypes.STRING,
+        destination:            DataTypes.STRING,
+        rideDate:               DataTypes.DATE,
+        maxUsers:               DataTypes.INTEGER,
+        status:                 DataTypes.ENUM('ACTIVE', 'INACTIVE')
     }, 
     {
-        syncOnAssociation: true,
-        timestamps: false,
-        underscored: true,
+        syncOnAssociation:      true,
+        timestamps:             false,
+        underscored:            true,
     });
 
     return Ride;
