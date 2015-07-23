@@ -1,6 +1,2 @@
 node_modules/*
-examples/populate/.Python
-examples/populate/.ipynb_checkpoints/
-examples/populate/bin/
-examples/populate/include/
-examples/populate/lib/
+examples/*
