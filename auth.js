@@ -1,8 +1,9 @@
 var db                  = require('./models');
+var passport            = require('passport');
 
 module.exports.ensureAuthenticated = function(req, res, next) {
 	if (req.isAuthenticated()) { return next(); }
-	res.sendStatus(401);
+    passport.authenticate('facebook-token')(req, res, next);
 	return;
 }
 
