@@ -56,7 +56,7 @@ module.exports.getRidePage = function(req, res) {
 	db.Ride.findAll({
 		limit: 10,
 		offset: (req.params.page - 1) * 10,
-		order: "\`rideDate\` DESC"
+		order: "\'rideDate\' DESC"
 	})
 	.then(function(users) {
 		res.write(JSON.stringify(users));
