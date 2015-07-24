@@ -76,6 +76,11 @@ getAddress = function(coordinates, callback) {
 	}, function(err, response, body) {
 		if (err) { console.log(err); callback(err); return; }
 		var address = JSON.parse(body)['results'][0];
-		callback(address['formatted_address']);
+		var addressObject = {}
+		for (type in address['address_components']) {
+			addressObject[address['address_components'][type]['types'][0]] = address['address_components'][type]['short_name']
+		}
+		addressObject['formatted_address'] = address['formatted_address'];
+		callback(JSON.stringify(addressObject));
 	});
 }

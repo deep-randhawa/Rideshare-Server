@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
         createdByProvider:      DataTypes.STRING,
         sourceCoordinates:      DataTypes.STRING,
         destinationCoordinates: DataTypes.STRING,
-        sourceAddress:          DataTypes.STRING,
-        destinationAddress:     DataTypes.STRING,
+        sourceAddress:          DataTypes.TEXT,
+        destinationAddress:     DataTypes.TEXT,
         rideDate:               DataTypes.DATE,
         maxUsers:               DataTypes.INTEGER,
         status:                 DataTypes.ENUM('ACTIVE', 'INACTIVE')
