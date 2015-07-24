@@ -100,9 +100,10 @@ fs.readFile('config.json', 'utf8', function(err, data) {
             app.get('/users'
                 , auth.ensureAuthenticated
                 , userAPI.getAllUsers);
-            app.get('/rides'
-                , auth.ensureAuthenticated
+            app.get('/ride'
                 , rideAPI.getAllRides);
+            app.get('/ride/:id'
+                , rideAPI.getRide);
             app.get('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
                 res.sendStatus(200);
             });
