@@ -43,7 +43,7 @@ module.exports.newRide = function(req, res) {
 module.exports.getAllRides = function(req, res) {
 	db.Ride.findAll({
 		limit: 10,
-		order: 'rideDate DESC',
+		order: "\"rideDate\" DESC",
 		offset: 0
 	})
 	.then(function(users) {
