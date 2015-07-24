@@ -100,6 +100,7 @@ getAddress = function(coordinates, callback) {
 			addressObject[address['address_components'][type]['types'][0]] = address['address_components'][type]['short_name']
 		}
 		addressObject['formatted_address'] = address['formatted_address'];
+		addressObject['place_id'] = address['place_id'];
 		callback(JSON.stringify(addressObject));
 	});
 }
