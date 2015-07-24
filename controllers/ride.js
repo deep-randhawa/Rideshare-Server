@@ -75,7 +75,10 @@ getAddress = function(coordinates, callback) {
 		qs: queryString
 	}, function(err, response, body) {
 		if (err) { console.log(err); callback(err); return; }
-		var address = JSON.parse(body)['results'][0];
+		var jsonBody = JSON.parse(body);
+		if (jsonBody['status'] == 'ZERO_RESULTS') { callback(body['results']); return; }
+
+		var address = jsonBody['results'][0];
 		var addressObject = {}
 		for (type in address['address_components']) {
 			addressObject[address['address_components'][type]['types'][0]] = address['address_components'][type]['short_name']
