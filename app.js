@@ -104,6 +104,8 @@ fs.readFile('config.json', 'utf8', function(err, data) {
                 , rideAPI.getAllRides);
             app.get('/ride/:id'
                 , rideAPI.getRide);
+            app.get('/ride/page/:page'
+                , rideAPI.getRidePage);
             app.get('/login/facebook', passport.authenticate('facebook-token'), function(req, res) {
                 res.sendStatus(200);
             });

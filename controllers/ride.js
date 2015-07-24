@@ -41,7 +41,23 @@ module.exports.newRide = function(req, res) {
 }
 
 module.exports.getAllRides = function(req, res) {
-	db.Ride.findAll()
+	db.Ride.findAll({
+		limit: 10,
+		order: 'rideDate DESC',
+		offset: 0
+	})
+	.then(function(users) {
+		res.write(JSON.stringify(users));
+		res.end();
+	});
+}
+
+module.exports.getRidePage = function(req, res) {
+	db.Ride.findAll({
+		limit: 10,
+		offset: (req.params.page - 1) * 10,
+		order: 'rideDate DESC'
+	})
 	.then(function(users) {
 		res.write(JSON.stringify(users));
 		res.end();
