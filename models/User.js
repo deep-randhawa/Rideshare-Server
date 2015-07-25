@@ -5,11 +5,7 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: 		true
 		},
 		name: 					DataTypes.STRING,
-		home_location: 			DataTypes.STRING, // will have coordinates of home <LAT:LONG>
-		provider: {
-			type: 				DataTypes.ENUM('unknown', 'twitter', 'facebook', 'google'),
-			primaryKey: 		true
-		}
+		home_location: 			DataTypes.STRING // will have coordinates of home <LAT:LONG>
 	}, 
 	{
 		syncOnAssociation: 		true,
