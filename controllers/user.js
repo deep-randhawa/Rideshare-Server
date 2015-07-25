@@ -12,8 +12,7 @@ module.exports.createUser = function(req, res) {
 	db.User.create({
 		user_id: 		req.body.user_id,
 		name: 			req.body.name,
-		home_location: 	req.body.home_location,
-		provider: 		req.body.provider
+		home_location: 	req.body.home_location
 	})
 	.then(function(user) {
 		res.sendStatus(200);
